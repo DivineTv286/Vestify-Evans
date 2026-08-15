@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     const BREVO_API_KEY = process.env.BREVO_API_KEY; // Set this in your Vercel/Hosting dashboard
 
     const emailData = {
-        sender: { name: "Vestify Support", email: "no-reply@vestify.com" },
+        sender: { name: "Vestify Support", email: "supportvestify@gmail.com" },
         to: [{ email: email, name: fullName }],
         subject: "Welcome to Vestify! Complete Your Plan Activation 🚀",
         htmlContent: `
