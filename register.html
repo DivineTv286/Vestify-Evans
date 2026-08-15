@@ -26,25 +26,17 @@
     </script>
 </head>
 <body class="bg-brandDark text-white min-h-screen flex flex-col items-center justify-center p-4">
-
-    <!-- STEP 1: Registration Form Container -->
     <div id="registerStep" class="w-full max-w-md bg-brandCard border border-brandCardBorder rounded-3xl p-6 sm:p-8 shadow-2xl my-6">
-        
-        <!-- Logo & Brand Header -->
         <div class="flex items-center justify-center space-x-3 mb-6">
             <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20 p-2">
                 <img src="logo.png" alt="Vestify Logo" class="w-full h-full object-contain">
             </div>
             <span class="text-2xl font-bold tracking-wide text-white">Vestify</span>
         </div>
-
-        <!-- Headings -->
         <div class="text-center mb-8">
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">Create your account</h1>
             <p class="text-gray-400 text-sm">Fill in your details to get started on Vestify.</p>
         </div>
-
-        <!-- Registration Form -->
         <form id="registerForm" class="space-y-5" onsubmit="proceedToPlans(event)">
             <div>
                 <label class="block text-xs font-bold tracking-wider text-gray-300 uppercase mb-2">Full Name</label>
@@ -88,16 +80,11 @@
             </button>
         </form>
     </div>
-
-    <!-- STEP 2: Membership Plans Selection Container (Hidden Initially) -->
     <div id="planStep" class="hidden w-full max-w-md bg-brandCard border border-brandCardBorder rounded-3xl p-6 sm:p-8 shadow-2xl my-6 relative">
         
-        <!-- Back / Close Icon -->
         <button onclick="goBackToRegister()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-[#2e144d] flex items-center justify-center text-gray-300 hover:text-white">
             <i class="fa fa-times text-xs"></i>
         </button>
-
-        <!-- Logo & Header -->
         <div class="text-center mb-6">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20 p-2.5 mx-auto mb-3">
                 <img src="logo.png" alt="Vestify Logo" class="w-full h-full object-contain">
@@ -105,10 +92,8 @@
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-1">Select Membership Plan</h1>
         </div>
 
-        <!-- Plans List -->
+
         <div class="space-y-4 mb-6">
-            
-            <!-- Plan 1: Noble -->
             <div onclick="selectPlan('Vestify Elite', 15000, this)" 
                 class="plan-card cursor-pointer border-2 border-brandCardBorder bg-[#130620] rounded-2xl p-4 transition-all hover:border-orange-500 relative">
                 <div class="flex items-center justify-between mb-2">
@@ -120,8 +105,6 @@
                 <h3 class="font-bold text-base text-white mb-1">Vestify Elite</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Ideal for beginners looking to start earning and enjoying premium Vestify access.</p>
             </div>
-
-            <!-- Plan 2: Emperor -->
             <div onclick="selectPlan('Vestify Supremo', 30000, this)" 
                 class="plan-card cursor-pointer border-2 border-brandCardBorder bg-[#130620] rounded-2xl p-4 transition-all hover:border-orange-500 relative">
                 <div class="flex items-center justify-between mb-2">
@@ -133,8 +116,6 @@
                 <h3 class="font-bold text-base text-white mb-1">Vestify Supremo</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Enhanced rewards, greater earning opportunities and access to exclusive benefits.</p>
             </div>
-
-            <!-- Plan 3: Dynasty (Pre-selected default style) -->
             <div onclick="selectPlan('Vestify legend', 55000, this)" 
                 class="plan-card cursor-pointer border-2 border-orange-500 bg-[#130620] rounded-2xl p-4 transition-all shadow-lg shadow-orange-500/10 relative" id="defaultPlan">
                 <div class="flex items-center justify-between mb-2">
@@ -148,8 +129,6 @@
             </div>
 
         </div>
-
-        <!-- Activate Button -->
         <button onclick="confirmPlanAndPay()" id="payBtn"
             class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-pink-600 hover:opacity-95 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-orange-500/25 transition-all flex items-center justify-center space-x-2 text-sm">
             <span id="planBtnText">Activate Selected Plan</span>
@@ -159,86 +138,44 @@
             </svg>
         </button>
     </div>
-
-    <!-- Scripts Logic -->
     <script>
-        let selectedPlanData = {
-            name: "Vestify legend",
-            amount: 50000
-        };
+       async function confirmPlanAndPay() {
+        const userData = JSON.parse(localStorage.getItem('vestifyUser') || '{}');
+        userData.selectedPlan = selectedPlanData.name;
+        userData.planAmount = selectedPlanData.amount;
+        localStorage.setItem('vestifyUser', JSON.stringify(userData));
 
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eyeIcon');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            }
-        }
 
-        function proceedToPlans(event) {
-            event.preventDefault();
+        const btnText = document.getElementById('planBtnText');
+        const spinner = document.getElementById('planSpinner');
+        const payBtn = document.getElementById('payBtn');
 
-            // Cache registration fields temporarily
-            const userData = {
-                fullName: document.getElementById('fullName').value,
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                password: document.getElementById('password').value
-            };
-            localStorage.setItem('vestifyUser', JSON.stringify(userData));
+        btnText.textContent = "Processing & Sending Email...";
+        spinner.classList.remove('hidden');
+        payBtn.disabled = true;
 
-            // Switch view from register form to plan selection card
-            document.getElementById('registerStep').classList.add('hidden');
-            document.getElementById('planStep').classList.remove('hidden');
-        }
-
-        function goBackToRegister() {
-            document.getElementById('planStep').classList.add('hidden');
-            document.getElementById('registerStep').classList.remove('hidden');
-        }
-
-        function selectPlan(name, amount, element) {
-            selectedPlanData = { name, amount };
-
-            // Reset border highlights on all cards
-            document.querySelectorAll('.plan-card').forEach(card => {
-                card.classList.remove('border-orange-500', 'shadow-lg', 'shadow-orange-500/10');
-                card.classList.add('border-brandCardBorder');
+        try {
+            const response = await fetch('/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: userData.email,
+                    fullName: userData.fullName,
+                    planName: selectedPlanData.name,
+                    planAmount: selectedPlanData.amount,
+                    paymentLink: window.location.origin + "/payment.html"
+                })
             });
-
-            // Highlight selected card
-            element.classList.remove('border-brandCardBorder');
-            element.classList.add('border-orange-500', 'shadow-lg', 'shadow-orange-500/10');
+            console.log("Email trigger response processed.");
+        } catch (error) {
+            console.error("Network or API error triggering email:", error);
         }
-
-        function confirmPlanAndPay() {
-            // Save selected plan info alongside user details
-            const userData = JSON.parse(localStorage.getItem('vestifyUser') || '{}');
-            userData.selectedPlan = selectedPlanData.name;
-            userData.planAmount = selectedPlanData.amount;
-            localStorage.setItem('vestifyUser', JSON.stringify(userData));
-
-            // UI loading state
-            const btnText = document.getElementById('planBtnText');
-            const spinner = document.getElementById('planSpinner');
-            const payBtn = document.getElementById('payBtn');
-
-            btnText.textContent = "Redirecting...";
-            spinner.classList.remove('hidden');
-            payBtn.disabled = true;
-
-            // Simulate email trigger and navigate to payment.html
-            setTimeout(() => {
-                window.location.href = "payment.html";
-            }, 1200);
-        }
+        setTimeout(() => {
+            window.location.href = "payment.html";
+        }, 1200);
+    }
     </script>
 </body>
 </html>
