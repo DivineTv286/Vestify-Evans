@@ -31,7 +31,7 @@
         <!-- Logo & Brand Header -->
         <div class="flex items-center justify-center space-x-3 mb-6">
             <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20 p-2">
-                <img src="IMG_20260815_134639_986-removebg-preview.png" alt="Vestify Logo" class="w-full h-full object-contain">
+                <img src="logo.png" alt="Vestify Logo" class="w-full h-full object-contain">
             </div>
             <span class="text-2xl font-bold tracking-wide text-white">Vestify</span>
         </div>
@@ -98,7 +98,7 @@
         <!-- Logo & Header -->
         <div class="text-center mb-6">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20 p-2.5 mx-auto mb-3">
-                <img src="IMG_20260815_134639_986-removebg-preview.png" alt="Vestify Logo" class="w-full h-full object-contain">
+                <img src="logo.png" alt="Vestify Logo" class="w-full h-full object-contain">
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-1">Select Membership Plan</h1>
         </div>
@@ -115,12 +115,12 @@
                     </div>
                     <span class="text-amber-400 font-extrabold text-base">₦15,000</span>
                 </div>
-                <h3 class="font-bold text-base text-white mb-1">Vestify Noble</h3>
+                <h3 class="font-bold text-base text-white mb-1">Vestify Elite</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Ideal for beginners looking to start earning and enjoying premium Vestify access.</p>
             </div>
 
             <!-- Plan 2: Emperor -->
-            <div onclick="selectPlan('Vestify Emperor', 25000, this)" 
+            <div onclick="selectPlan('Vestify Emperor', 30000, this)" 
                 class="plan-card cursor-pointer border-2 border-brandCardBorder bg-[#130620] rounded-2xl p-4 transition-all hover:border-orange-500 relative">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center p-2">
@@ -128,12 +128,12 @@
                     </div>
                     <span class="text-amber-400 font-extrabold text-base">₦25,000</span>
                 </div>
-                <h3 class="font-bold text-base text-white mb-1">Vestify Emperor</h3>
+                <h3 class="font-bold text-base text-white mb-1">Vestify Supremo</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Enhanced rewards, greater earning opportunities and access to exclusive benefits.</p>
             </div>
 
             <!-- Plan 3: Dynasty (Pre-selected default style) -->
-            <div onclick="selectPlan('Vestify Dynasty', 50000, this)" 
+            <div onclick="selectPlan('Vestify legend', 50000, this)" 
                 class="plan-card cursor-pointer border-2 border-orange-500 bg-[#130620] rounded-2xl p-4 transition-all shadow-lg shadow-orange-500/10 relative" id="defaultPlan">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center p-2">
@@ -141,7 +141,7 @@
                     </div>
                     <span class="text-amber-400 font-extrabold text-base">₦50,000</span>
                 </div>
-                <h3 class="font-bold text-base text-white mb-1">Vestify Dynasty</h3>
+                <h3 class="font-bold text-base text-white mb-1">Vestify legend</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Elite membership experience with maximum benefits, priority access and premium rewards.</p>
             </div>
 
@@ -161,7 +161,7 @@
     <!-- Scripts Logic -->
     <script>
         let selectedPlanData = {
-            name: "Vestify Dynasty",
+            name: "Vestify legend",
             amount: 50000
         };
 
