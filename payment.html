@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vestify Activation - Payment</title>
@@ -65,7 +67,7 @@
             <div class="bg-[#130620] border border-brandCardBorder rounded-2xl p-4 flex items-center justify-between">
                 <div>
                     <span class="block text-[10px] font-bold tracking-wider text-gray-400 uppercase mb-1">Account Number</span>
-                    <span id="accountNumber" class="text-white text-lg font-bold tracking-wider">6028370733</span>
+                    <span id="accountNumber" class="text-white text-lg font-bold tracking-wider"></span>
                 </div>
                 <button onclick="copyText('accountNumber', this)" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-90 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md transition-all">
                     Copy
@@ -87,7 +89,7 @@
             <div class="bg-[#130620] border border-brandCardBorder rounded-2xl p-4 flex items-center justify-between">
                 <div>
                     <span class="block text-[10px] font-bold tracking-wider text-gray-400 uppercase mb-1">Account Name</span>
-                    <span id="accountName" class="text-white text-sm font-bold leading-snug">Grow With Ella Ventures - Coach Ella</span>
+                    <span id="accountName" class="text-white text-sm font-bold leading-snug">Name</span>
                 </div>
                 <button onclick="copyText('accountName', this)" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-90 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md transition-all">
                     Copy
@@ -133,13 +135,13 @@
                     document.getElementById('displayAmount').textContent = '₦' + Number(currentUserData.planAmount).toLocaleString();
                     document.getElementById('planBadge').textContent = currentUserData.selectedPlan || 'Vestify Plan';
                 } else {
-                    document.getElementById('displayAmount').textContent = '₦50,000';
-                    document.getElementById('planBadge').textContent = 'Vestify Dynasty';
+                    document.getElementById('displayAmount').textContent = '₦55,000';
+                    document.getElementById('planBadge').textContent = 'Vestify legend';
                 }
             } else {
                 // Fallback default if accessed directly
-                document.getElementById('displayAmount').textContent = '₦50,000';
-                document.getElementById('planBadge').textContent = 'Vestify Dynasty';
+                document.getElementById('displayAmount').textContent = '₦55,000';
+                document.getElementById('planBadge').textContent = 'Vestify legend';
             }
         };
 
