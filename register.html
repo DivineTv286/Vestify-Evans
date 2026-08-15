@@ -109,7 +109,7 @@
         <div class="space-y-4 mb-6">
             
             <!-- Plan 1: Noble -->
-            <div onclick="selectPlan('Vestify Noble', 15000, this)" 
+            <div onclick="selectPlan('Vestify Elite', 15000, this)" 
                 class="plan-card cursor-pointer border-2 border-brandCardBorder bg-[#130620] rounded-2xl p-4 transition-all hover:border-orange-500 relative">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center p-2">
@@ -122,7 +122,7 @@
             </div>
 
             <!-- Plan 2: Emperor -->
-            <div onclick="selectPlan('Vestify Emperor', 30000, this)" 
+            <div onclick="selectPlan('Vestify Supremo', 30000, this)" 
                 class="plan-card cursor-pointer border-2 border-brandCardBorder bg-[#130620] rounded-2xl p-4 transition-all hover:border-orange-500 relative">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center p-2">
@@ -230,7 +230,7 @@
             const spinner = document.getElementById('planSpinner');
             const payBtn = document.getElementById('payBtn');
 
-            btnText.textContent = "Triggering Email & Redirecting...";
+            btnText.textContent = "Redirecting...";
             spinner.classList.remove('hidden');
             payBtn.disabled = true;
 
