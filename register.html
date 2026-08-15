@@ -5,6 +5,7 @@
     <link rel="apple-touch-icon" href="assets/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Register - Vestify</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -118,15 +119,26 @@
             btnText.textContent = "Processing & Sending Email...";
             spinner.classList.remove('hidden');
             submitBtn.disabled = true;
-
-            // Simulate Email Dispatch Action (If handling backend via PHP/API, replace this block with fetch)
             setTimeout(() => {
                 console.log(`Welcome email triggered successfully to: ${email}`);
                 
-                // Redirect to payment page
                 window.location.href = "payment.html";
             }, 1200);
         }
+        function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye'); 
+    } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash'); 
+    }
+}
     </script>
 </body>
 </html>
