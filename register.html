@@ -26,6 +26,8 @@
     </script>
 </head>
 <body class="bg-brandDark text-white min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- STEP 1: Registration Form Container -->
     <div id="registerStep" class="w-full max-w-md bg-brandCard border border-brandCardBorder rounded-3xl p-6 sm:p-8 shadow-2xl my-6">
         <div class="flex items-center justify-center space-x-3 mb-6">
             <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20 p-2">
@@ -80,8 +82,9 @@
             </button>
         </form>
     </div>
+
+    <!-- STEP 2: Membership Plans Selection Container -->
     <div id="planStep" class="hidden w-full max-w-md bg-brandCard border border-brandCardBorder rounded-3xl p-6 sm:p-8 shadow-2xl my-6 relative">
-        
         <button onclick="goBackToRegister()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-[#2e144d] flex items-center justify-center text-gray-300 hover:text-white">
             <i class="fa fa-times text-xs"></i>
         </button>
@@ -92,8 +95,8 @@
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-1">Select Membership Plan</h1>
         </div>
 
-
         <div class="space-y-4 mb-6">
+            <!-- Plan 1 -->
             <div onclick="selectPlan('Vestify Elite', 15000, this)" 
                 class="plan-card cursor-pointer border-2 border-brandCardBorder bg-[#130620] rounded-2xl p-4 transition-all hover:border-orange-500 relative">
                 <div class="flex items-center justify-between mb-2">
@@ -105,6 +108,8 @@
                 <h3 class="font-bold text-base text-white mb-1">Vestify Elite</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Ideal for beginners looking to start earning and enjoying premium Vestify access.</p>
             </div>
+
+            <!-- Plan 2 -->
             <div onclick="selectPlan('Vestify Supremo', 30000, this)" 
                 class="plan-card cursor-pointer border-2 border-brandCardBorder bg-[#130620] rounded-2xl p-4 transition-all hover:border-orange-500 relative">
                 <div class="flex items-center justify-between mb-2">
@@ -116,6 +121,8 @@
                 <h3 class="font-bold text-base text-white mb-1">Vestify Supremo</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Enhanced rewards, greater earning opportunities and access to exclusive benefits.</p>
             </div>
+
+            <!-- Plan 3 (Default Selected) -->
             <div onclick="selectPlan('Vestify legend', 55000, this)" 
                 class="plan-card cursor-pointer border-2 border-orange-500 bg-[#130620] rounded-2xl p-4 transition-all shadow-lg shadow-orange-500/10 relative" id="defaultPlan">
                 <div class="flex items-center justify-between mb-2">
@@ -127,8 +134,8 @@
                 <h3 class="font-bold text-base text-white mb-1">Vestify legend</h3>
                 <p class="text-gray-400 text-xs leading-relaxed">Elite membership experience with maximum benefits, priority access and premium rewards.</p>
             </div>
-
         </div>
+
         <button onclick="confirmPlanAndPay()" id="payBtn"
             class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-pink-600 hover:opacity-95 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-orange-500/25 transition-all flex items-center justify-center space-x-2 text-sm">
             <span id="planBtnText">Activate Selected Plan</span>
@@ -138,44 +145,101 @@
             </svg>
         </button>
     </div>
+
     <script>
-       async function confirmPlanAndPay() {
-        const userData = JSON.parse(localStorage.getItem('vestifyUser') || '{}');
-        userData.selectedPlan = selectedPlanData.name;
-        userData.planAmount = selectedPlanData.amount;
-        localStorage.setItem('vestifyUser', JSON.stringify(userData));
+        // Default initialized plan data (Vestify legend at ₦55,000)
+        let selectedPlanData = {
+            name: 'Vestify legend',
+            amount: 55000
+        };
 
-
-        const btnText = document.getElementById('planBtnText');
-        const spinner = document.getElementById('planSpinner');
-        const payBtn = document.getElementById('payBtn');
-
-        btnText.textContent = "Processing & Sending Email...";
-        spinner.classList.remove('hidden');
-        payBtn.disabled = true;
-
-        try {
-            const response = await fetch('/api', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: userData.email,
-                    fullName: userData.fullName,
-                    planName: selectedPlanData.name,
-                    planAmount: selectedPlanData.amount,
-                    paymentLink: window.location.origin + "/payment.html"
-                })
-            });
-            console.log("Email trigger response processed.");
-        } catch (error) {
-            console.error("Network or API error triggering email:", error);
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
         }
-        setTimeout(() => {
-            window.location.href = "payment.html";
-        }, 1200);
-    }
+
+        function proceedToPlans(event) {
+            event.preventDefault();
+
+            // Save user registration data locally
+            const userData = {
+                fullName: document.getElementById('fullName').value.trim(),
+                username: document.getElementById('username').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+            };
+            localStorage.setItem('vestifyUser', JSON.stringify(userData));
+
+            // Switch UI views from Register to Plans
+            document.getElementById('registerStep').classList.add('hidden');
+            document.getElementById('planStep').classList.remove('hidden');
+        }
+
+        function goBackToRegister() {
+            document.getElementById('planStep').classList.add('hidden');
+            document.getElementById('registerStep').classList.remove('hidden');
+        }
+
+        function selectPlan(name, amount, element) {
+            selectedPlanData = { name, amount };
+
+            // Reset border styling for all plan cards
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('border-orange-500', 'shadow-lg', 'shadow-orange-500/10');
+                card.classList.add('border-brandCardBorder');
+            });
+
+            // Highlight the clicked plan card
+            element.classList.remove('border-brandCardBorder');
+            element.classList.add('border-orange-500', 'shadow-lg', 'shadow-orange-500/10');
+        }
+
+        async function confirmPlanAndPay() {
+            const userData = JSON.parse(localStorage.getItem('vestifyUser') || '{}');
+            userData.selectedPlan = selectedPlanData.name;
+            userData.planAmount = selectedPlanData.amount;
+            localStorage.setItem('vestifyUser', JSON.stringify(userData));
+
+            const btnText = document.getElementById('planBtnText');
+            const spinner = document.getElementById('planSpinner');
+            const payBtn = document.getElementById('payBtn');
+
+            btnText.textContent = "Processing & Sending Email...";
+            spinner.classList.remove('hidden');
+            payBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: userData.email,
+                        fullName: userData.fullName,
+                        planName: selectedPlanData.name,
+                        planAmount: selectedPlanData.amount,
+                        paymentLink: window.location.origin + "/payment.html"
+                    })
+                });
+                console.log("Email trigger response processed.");
+            } catch (error) {
+                console.error("Network or API error triggering email:", error);
+            }
+
+            setTimeout(() => {
+                window.location.href = "payment.html";
+            }, 1200);
+        }
     </script>
 </body>
 </html>
