@@ -43,8 +43,10 @@
     <!-- Header / Navbar -->
     <header class="sticky top-0 z-50 bg-brandDark/90 backdrop-blur-md border-b border-brandCardBorder py-4 px-6 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-brandYellow flex items-center justify-center font-bold text-brandDark text-xl shadow-md">
-                G
+            <div class="w-10 h-10 rounded-full bg-brandCard border border-brandCardBorder flex items-center justify-center overflow-hidden shadow-md">
+                <svg viewBox="0 0 36 36" class="w-7 h-7 text-brandYellow" fill="currentColor">
+                    <path d="M18 2C9.16 2 2 9.16 2 18s7.16 16 16 16 16-7.16 16-16S26.84 2 18 2zm8.5 22.5h-3.2l-2.4-6h-5.8l-2.4 6h-3.2l6.2-15h3.4l6.4 15zm-7.6-8.8l-1.9-5-1.9 5h3.8z"/>
+                </svg>
             </div>
             <span class="text-xl font-bold tracking-wide">Globevest</span>
         </div>
@@ -54,6 +56,36 @@
             </button>
         </div>
     </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-50 bg-brandDark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col px-6 py-8">
+        <div class="flex items-center justify-between mb-10">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-brandCard border border-brandCardBorder flex items-center justify-center overflow-hidden shadow-md">
+                    <svg viewBox="0 0 36 36" class="w-7 h-7 text-brandYellow" fill="currentColor">
+                        <path d="M18 2C9.16 2 2 9.16 2 18s7.16 16 16 16 16-7.16 16-16S26.84 2 18 2zm8.5 22.5h-3.2l-2.4-6h-5.8l-2.4 6h-3.2l6.2-15h3.4l6.4 15zm-7.6-8.8l-1.9-5-1.9 5h3.8z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold tracking-wide">Globevest</span>
+            </div>
+            <button id="closeMenuBtn" class="text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-6 text-lg font-semibold mb-auto">
+            <a href="#plans" class="mobile-link text-gray-200 hover:text-brandYellow transition">Registration</a>
+            <a href="#faq" class="mobile-link text-gray-200 hover:text-brandYellow transition">Frequently Asked Questions</a>
+            <a href="#features" class="mobile-link text-gray-200 hover:text-brandYellow transition">How to Earn</a>
+        </nav>
+        <div class="flex flex-col space-y-3 pt-6 border-t border-brandCardBorder">
+            <a href="#plans" class="mobile-link block w-full bg-brandCard border border-brandCardBorder text-white font-bold py-3.5 px-6 rounded-full text-center hover:bg-brandCardBorder transition">
+                Login
+            </a>
+            <a href="#plans" class="mobile-link block w-full bg-brandYellow text-brandDark font-bold py-3.5 px-6 rounded-full text-center shadow-lg hover:opacity-95 transition">
+                Register
+            </a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="px-6 pt-8 pb-12 text-center flex flex-col items-center">
@@ -84,7 +116,23 @@
         </div>
 
         <div class="space-y-6 max-w-md mx-auto">
-            <!-- Card 1: Big Loans -->
+            <!-- Card 1: Flexible Staking -->
+            <div class="bg-brandCard border border-brandCardBorder rounded-2xl p-6 relative overflow-hidden">
+                <h3 class="text-xl font-bold mb-3">Flexible Staking</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                    Staking easy games on GlobeVest is a smart and rewarding way to earn ₦100,000 to ₦500,000 daily. By staking consistently each day, you can make up to ₦1 million per week.
+                </p>
+            </div>
+
+            <!-- Card 2: Monetized Streaming -->
+            <div class="bg-brandCard border border-brandCardBorder rounded-2xl p-6 relative overflow-hidden">
+                <h3 class="text-xl font-bold mb-3">Monetized Streaming</h3>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                    As a GlobeVest user, you’re eligible to earn between ₦10,000 and ₦50,000 daily just by watching reels and videos.
+                </p>
+            </div>
+
+            <!-- Card 3: Big Loans -->
             <div class="bg-brandCard border border-brandCardBorder rounded-2xl p-6 relative overflow-hidden">
                 <h3 class="text-xl font-bold mb-3">Big Loans - No Collateral</h3>
                 <p class="text-gray-300 text-xs leading-relaxed">
@@ -92,7 +140,7 @@
                 </p>
             </div>
 
-            <!-- Card 2: Content Monetization -->
+            <!-- Card 4: Content Monetization -->
             <div class="bg-brandCard border border-brandCardBorder rounded-2xl p-6 relative overflow-hidden">
                 <h3 class="text-xl font-bold mb-3">Content Monetization</h3>
                 <p class="text-gray-300 text-xs leading-relaxed mb-6">
@@ -201,7 +249,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="px-6 py-10 max-w-md mx-auto">
+    <section id="faq" class="px-6 py-10 max-w-md mx-auto">
         <div class="mb-6">
             <span class="text-brandLightPurple text-xs font-bold uppercase tracking-wider">FAQ</span>
             <h2 class="text-2xl font-extrabold mt-1">Your questions, answered</h2>
@@ -278,8 +326,27 @@
         </a>
     </div>
 
-    <!-- JavaScript for rotating live floating notifications -->
+    <!-- JavaScript for rotating live floating notifications & mobile menu -->
     <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            if (mobileMenu.classList.contains('translate-x-full')) {
+                mobileMenu.classList.remove('translate-x-full');
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
         const notifications = [
             {
                 name: "Aisha Bello",
@@ -310,7 +377,6 @@
         const toastAction = document.getElementById('toastAction');
 
         function updateToast() {
-            // Fade out
             toast.style.opacity = '0';
             toast.style.transform = 'translateY(10px)';
 
@@ -322,13 +388,11 @@
                 toastName.textContent = current.name;
                 toastAction.textContent = current.action;
 
-                // Fade in
                 toast.style.opacity = '1';
                 toast.style.transform = 'translateY(0)';
             }, 500);
         }
 
-        // Rotate notification every 5 seconds
         setInterval(updateToast, 5000);
     </script>
 </body>
